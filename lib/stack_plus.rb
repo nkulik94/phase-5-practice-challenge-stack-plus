@@ -1,17 +1,33 @@
+require 'pry'
 class StackPlus
+  attr_reader :inc, :stack
   def initialize
-    # your code here
+    @stack = []
+    @inc = []
   end
 
   def push(value)
-    # your code here
+    stack.push(value)
+    inc.push(0)
   end
 
   def pop
-    # your code here
+    return -1 if stack.size == 0
+
+    popped_value = stack.pop
+    popped_inc = inc.pop
+    if inc.last
+      last_inc = inc.last + popped_inc
+      inc[inc.size - 1] = last_inc
+    end
+    popped_value + popped_inc
   end
 
   def increment(n)
-    # your code here
+    position = [n, stack.size].min - 1
+    inc[position] += 1 if position >= 0
   end
 end
+
+# binding.pry
+# 0
